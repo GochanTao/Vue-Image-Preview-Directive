@@ -5,10 +5,11 @@ export default {
         // 处理配置项
         const defaultConfig = {
           isPinned: false,
-          position: 'left', // 可选值：'left'、'center'、'right'
-          src: '' // 图片源
+          position: 'center', // 可选值：'left'、'center'、'right' 或具体的位置值如 '100px'、'20%'
+          src: '', // 图片源
+          scale: 1, // 初始缩放比例
         };
-        
+
         // 合并用户配置和默认配置
         const config = {
           ...defaultConfig,
@@ -89,21 +90,40 @@ export default {
           const containerWidth = container.offsetWidth;
           const containerHeight = container.offsetHeight;
           const padding = 0;
-          
+
           let left;
-          switch (config.position) {
-            case 'center':
-              left = (viewportWidth - containerWidth) / 2;
-              break;
-            case 'right':
-              left = viewportWidth - containerWidth - padding;
-              break;
-            case 'left':
-            default:
-              left = padding;
-              break;
+          // 检查 position 是否是预设值或具体数值
+          if (typeof config.position === 'string') {
+            // 处理预设位置
+            switch (config.position) {
+              case 'center':
+                left = (viewportWidth - containerWidth) / 2;
+                break;
+              case 'right':
+                left = viewportWidth - containerWidth - padding;
+                break;
+              case 'left':
+                left = padding;
+                break;
+              default:
+                // 处理具体数值的情况
+                if (config.position.endsWith('px')) {
+                  // 处理像素值
+                  left = parseInt(config.position);
+                } else if (config.position.endsWith('%')) {
+                  // 处理百分比
+                  const percentage = parseFloat(config.position) / 100;
+                  left = viewportWidth * percentage;
+                } else {
+                  // 默认左对齐
+                  left = padding;
+                }
+            }
+          } else {
+            // 如果不是字符串，默认左对齐
+            left = padding;
           }
-          
+
           const top = (viewportHeight - containerHeight) / 2;
           return { left, top };
         };
@@ -189,18 +209,19 @@ export default {
 
           const imgSrc = config.src || el.src;
           if (!imgSrc) return;
-        
+
           previewImage.src = imgSrc;
           previewContainer.style.display = 'block';
           isPreviewActive = true; // 设置预览状态为活动
-          
+
           // 重置缩放
-          scale = 1.1;
+          scale = config.scale;
           updateTransform();
-          
+
           previewImage.onload = () => {
             const position = calculateInitialPosition(previewContainer);
             previewContainer.style.left = `${position.left}px`;
+            // previewContainer.style.left = `100px`;
             previewContainer.style.top = `${position.top}px`;
           };
         });
