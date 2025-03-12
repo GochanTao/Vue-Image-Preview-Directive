@@ -57,7 +57,7 @@ Vue.use(ImagePreview)
 | 参数 | 类型 | 默认值 | 可选值 | 说明 |
 |------|------|--------|--------|------|
 | isPinned | Boolean | false | true/false | 是否默认固定预览窗口 |
-| position | String | 'left' | 'left'/'center'/'right' | 预览窗口的显示位置 |
+| position | String | 'center' | 'left'/'center'/'right' 或具体的位置值如 '100px'、'20%' | 预览窗口的显示位置 |
 | src | String | - | - | 自定义预览图片地址。若不设置则使用原图片的 src |
 
 ## 功能说明
