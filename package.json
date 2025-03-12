@@ -1,0 +1,35 @@
+{
+  "name": "vue-image-preview-directive",
+  "version": "1.0.1",
+  "description": "A Vue directive for image preview with drag, zoom and pin features",
+  "main": "dist/imagePreview.js",
+  "scripts": {
+    "build": "babel src -d dist"
+  },
+  "keywords": [
+    "vue",
+    "directive",
+    "image",
+    "preview",
+    "zoom",
+    "drag"
+  ],
+  "author": "GochanTao",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GochanTao/vue-image-preview-directive.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GochanTao/vue-image-preview-directive/issues"
+  },
+  "homepage": "https://github.com/GochanTao/vue-image-preview-directive#readme",
+  "peerDependencies": {
+    "vue": "^2.6.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.0",
+    "@babel/core": "^7.12.0",
+    "@babel/preset-env": "^7.12.0"
+  }
+}
